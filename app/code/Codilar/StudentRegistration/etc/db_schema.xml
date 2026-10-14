@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="codilar_student_registration"
+           resource="default"
+           engine="innodb"
+           comment="Codilar Student Registration">
+
+        <column xsi:type="int" name="student_id"
+                unsigned="true" nullable="false"
+                identity="true" comment="Student ID"/>
+
+        <column xsi:type="varchar" name="student_name"
+                length="255" nullable="false"
+                comment="Student Name"/>
+
+        <column xsi:type="varchar" name="email"
+                length="255" nullable="false"
+                comment="Student Email"/>
+
+        <column xsi:type="varchar" name="phone"
+                length="30" nullable="false"
+                comment="Phone Number"/>
+
+        <column xsi:type="varchar" name="course"
+                length="100" nullable="false"
+                comment="Course"/>
+
+        <column xsi:type="timestamp" name="created_at"
+                nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="student_id"/>
+        </constraint>
+    </table>
+</schema>

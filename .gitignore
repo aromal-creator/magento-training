@@ -1,0 +1,43 @@
+# Environment / secrets
+/app/etc/env.php
+/app/etc/env.*.php
+/auth.json
+/.user.ini.local
+
+# Composer dependencies
+/vendor/
+
+# Generated and runtime files
+/generated/*
+!/generated/.htaccess
+/var/*
+!/var/.htaccess
+/pub/static/*
+!/pub/static/.htaccess
+/pub/media/*
+!/pub/media/.htaccess
+!/pub/media/customer/.htaccess
+!/pub/media/downloadable/.htaccess
+!/pub/media/import/.htaccess
+!/pub/media/theme_customization/.htaccess
+/pub/opt/
+/setup/src/Zend/Mvc/Controller/
+
+# Local tooling configs (copied from *.sample / *.dist)
+/Gruntfile.js
+/package.json
+/package-lock.json
+/grunt-config.json
+/node_modules/
+/dev/tests/*/phpunit.xml
+/dev/tests/*/etc/install-config-mysql.php
+/dev/tests/*/tmp/*
+!/dev/tests/*/tmp/.gitignore
+/.php-cs-fixer.cache
+/.phpunit.result.cache
+
+# IDE / OS
+/.idea/
+/.vscode/
+.DS_Store
+*.swp

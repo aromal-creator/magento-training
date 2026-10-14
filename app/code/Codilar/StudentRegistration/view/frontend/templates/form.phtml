@@ -1,0 +1,52 @@
+<h2><?= $block->escapeHtml(__('Student Registration Form')) ?></h2>
+
+<form action="<?= $block->escapeUrl(
+    $block->getUrl('studentregistration/index/save')
+) ?>" method="post">
+
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <div>
+        <label for="student_name">Student Name</label>
+        <input type="text"
+               id="student_name"
+               name="student_name"
+               required>
+    </div>
+
+    <br>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="email"
+               id="email"
+               name="email"
+               required>
+    </div>
+
+    <br>
+
+    <div>
+        <label for="phone">Phone Number</label>
+        <input type="tel"
+               id="phone"
+               name="phone"
+               required>
+    </div>
+
+    <br>
+
+    <div>
+        <label for="course">Select Course</label>
+        <select id="course" name="course" required>
+            <option value="">Choose a course</option>
+            <option value="Magento">Magento</option>
+            <option value="PHP">PHP</option>
+            <option value="Laravel">Laravel</option>
+        </select>
+    </div>
+
+    <br>
+
+    <button type="submit">Register Student</button>
+</form>

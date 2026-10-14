@@ -1,0 +1,102 @@
+// =============================================
+//  Custom styles layered on top of Luma
+// =============================================
+
+// ---------- Common (all screen sizes) ----------
+& when (@media-common = true) {
+
+    h1, h2, h3, h4, .page-title, .block-title strong {
+        font-family: @heading__font-family__base;
+        color: @cs-ink;
+        letter-spacing: -0.01em;
+    }
+
+    // Header
+    .page-header {
+        border-bottom: 0;
+        .header.content { padding-top: 18px; padding-bottom: 18px; }
+        .minicart-wrapper .action.showcart:before,
+        .block-search .label:before,
+        .nav-toggle:before { color: #fff; }
+        .minicart-wrapper .counter.qty { background: @cs-saffron; color: @cs-ink-dark; }
+        .header.panel > .header.links > li > a { color: #fff; }
+    }
+
+    // Compare link sits on the dark header: keep it white in every link state
+    .page-header .compare.wrapper {
+        .action.compare,
+        .action.compare:visited,
+        .action.compare:hover,
+        .action.compare:active,
+        .counter.qty { color: #fff; }
+    }
+
+    // Visible keyboard focus everywhere
+    a:focus-visible, button:focus-visible, input:focus-visible,
+    select:focus-visible, textarea:focus-visible {
+        outline: 2px solid @cs-saffron;
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+
+    // Product grid
+    .products-grid .product-item-info {
+        border: 1px solid transparent;
+        transition: border-color .15s ease;
+    }
+    .product-item-name a { color: @cs-ink; font-weight: 500; }
+    .price-box .price { color: @cs-ink; font-weight: 600; }
+    .special-price .price { color: darken(@cs-saffron, 18%); }
+
+    // Sale badge (add class "label-sale" in CMS blocks or templates)
+    .label-sale {
+        display: inline-block;
+        padding: 2px 8px;
+        background: @cs-saffron;
+        color: @cs-ink-dark;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 3px;
+    }
+
+    // Product page
+    .catalog-product-view .page-title { font-size: 3.2rem; }
+    .product-info-main .product-info-price .price { font-size: 2.8rem; }
+    .action.primary.tocart { padding: 16px 28px; font-size: 1.6rem; }
+
+    // Messages
+    .message.success { background: #E8F2EC; color: #1F5135; }
+    .message.error   { background: #FBEAEA; color: #7A1F1F; }
+
+    // Footer
+    .page-footer {
+        background: @cs-ink-dark;
+        color: #C9D1D6;
+        .footer.content { border-top: 0; padding-top: 40px; }
+        .footer.content a { color: #fff; }
+    }
+    .copyright { background: darken(@cs-ink-dark, 5%); color: #9AA5AD; }
+
+    // Respect reduced-motion preferences
+    @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; animation: none !important; }
+    }
+}
+
+// ---------- Desktop (768px and up) ----------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .navigation {
+        border-bottom: 1px solid @cs-stone;
+        .level0 > .level-top { font-weight: 500; }
+    }
+    .products-grid .product-item-info:hover {
+        border-color: @cs-stone;
+        box-shadow: none;
+    }
+}
+
+// ---------- Mobile (below 768px) ----------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .catalog-product-view .page-title { font-size: 2.4rem; }
+    .page-header .header.content { padding-top: 12px; padding-bottom: 12px; }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "custom/theme-frontend-storefront",
+    "description": "Custom Storefront theme for Magento 2 (child of Luma)",
+    "type": "magento2-theme",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "require": {
+        "magento/theme-frontend-luma": "*",
+        "magento/framework": "*"
+    },
+    "autoload": {
+        "files": ["registration.php"]
+    }
+}

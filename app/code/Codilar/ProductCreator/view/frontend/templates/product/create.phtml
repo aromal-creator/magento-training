@@ -1,0 +1,43 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$product = $block->getData('product');
+?>
+<?php if ($block->getData('success') && $product): ?>
+    <div class="message success">
+        <div><?= $escaper->escapeHtml(__('Product created successfully!')) ?></div>
+    </div>
+    <table class="data table">
+        <tbody>
+            <tr>
+                <th scope="row"><?= $escaper->escapeHtml(__('Product ID')) ?></th>
+                <td><?= (int) $product->getId() ?></td>
+            </tr>
+            <tr>
+                <th scope="row"><?= $escaper->escapeHtml(__('SKU')) ?></th>
+                <td><?= $escaper->escapeHtml($product->getSku()) ?></td>
+            </tr>
+            <tr>
+                <th scope="row"><?= $escaper->escapeHtml(__('Name')) ?></th>
+                <td><?= $escaper->escapeHtml($product->getName()) ?></td>
+            </tr>
+            <tr>
+                <th scope="row"><?= $escaper->escapeHtml(__('Price')) ?></th>
+                <td><?= $escaper->escapeHtml($product->getPrice()) ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="actions-toolbar">
+        <a class="action primary"
+           href="<?= $escaper->escapeUrl($block->getUrl('catalog/product/view', ['id' => $product->getId()])) ?>">
+            <span><?= $escaper->escapeHtml(__('View Product')) ?></span>
+        </a>
+        <a class="action secondary" href="<?= $escaper->escapeUrl($block->getUrl('productcreator/product/index')) ?>">
+            <span><?= $escaper->escapeHtml(__('View All Products')) ?></span>
+        </a>
+    </div>
+<?php else: ?>
+    <div class="message error">
+        <div><?= $escaper->escapeHtml(__('Product creation failed: %1', $block->getData('error'))) ?></div>
+    </div>
+<?php endif; ?>

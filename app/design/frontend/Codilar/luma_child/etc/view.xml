@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <media>
+        <images module="Magento_Catalog">
+            <!-- Square boxes so landscape and portrait product photos show at the same size -->
+            <image id="category_page_grid" type="small_image">
+                <width>480</width>
+                <height>480</height>
+            </image>
+            <image id="category_page_list" type="small_image">
+                <width>480</width>
+                <height>480</height>
+            </image>
+            <image id="new_products_content_widget_grid" type="small_image">
+                <width>480</width>
+                <height>480</height>
+            </image>
+            <image id="related_products_list" type="small_image">
+                <width>300</width>
+                <height>300</height>
+            </image>
+            <image id="upsell_products_list" type="small_image">
+                <width>300</width>
+                <height>300</height>
+            </image>
+            <image id="cart_cross_sell_products" type="small_image">
+                <width>480</width>
+                <height>480</height>
+            </image>
+        </images>
+    </media>
+</view>

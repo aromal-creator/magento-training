@@ -1,0 +1,54 @@
+<?php
+/** @var \Codilar\ProductCreator\Block\ProductList $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$products = $block->getProducts();
+?>
+<div class="actions-toolbar">
+    <a class="action primary" href="<?= $escaper->escapeUrl($block->getCreateUrl()) ?>">
+        <span><?= $escaper->escapeHtml(__('Add Product')) ?></span>
+    </a>
+</div>
+<?php if ($products->getSize()): ?>
+    <div class="table-wrapper">
+        <table class="data table">
+            <caption class="table-caption"><?= $escaper->escapeHtml(__('All Products')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col"><?= $escaper->escapeHtml(__('ID')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('Name')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('SKU')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('Type')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('Price')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('Status')) ?></th>
+                    <th scope="col"><?= $escaper->escapeHtml(__('Action')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($products as $product): ?>
+                    <tr>
+                        <td><?= (int) $product->getId() ?></td>
+                        <td><?= $escaper->escapeHtml($product->getName()) ?></td>
+                        <td><?= $escaper->escapeHtml($product->getSku()) ?></td>
+                        <td><?= $escaper->escapeHtml(ucfirst($product->getTypeId())) ?></td>
+                        <td><?= $escaper->escapeHtml($block->formatPrice($product)) ?></td>
+                        <td>
+                            <?= $escaper->escapeHtml($block->isEnabled($product) ? __('Enabled') : __('Disabled')) ?>
+                        </td>
+                        <td>
+                            <?php if ($block->canView($product)): ?>
+                                <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                                    <?= $escaper->escapeHtml(__('View')) ?>
+                                </a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="toolbar bottom"><?= $block->getPagerHtml() ?></div>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?= $escaper->escapeHtml(__('There are no products.')) ?></span>
+    </div>
+<?php endif; ?>

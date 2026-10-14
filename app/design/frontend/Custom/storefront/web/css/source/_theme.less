@@ -1,0 +1,59 @@
+// Load all of Luma's variables first (copied from vendor), then override below.
+@import '_luma-theme.less';
+
+// =============================================
+//  Theme variables: overrides Luma defaults
+//  Change colors/fonts here and everything follows.
+// =============================================
+
+// Palette
+@cs-ink:        #1E3A4C;   // deep harbour blue: header, headings, primary buttons
+@cs-ink-dark:   #142836;
+@cs-saffron:    #E3A23C;   // accent: sale prices, badges, focus ring
+@cs-paper:      #FAFAF7;   // page background
+@cs-stone:      #E6E4DD;   // borders, dividers
+@cs-text:       #2A2D2F;   // body text
+@cs-muted:      #6B7075;
+
+// Typography
+@font-family-name__base: 'Figtree';
+@font-family__base: @font-family-name__base, 'Helvetica Neue', Arial, sans-serif;
+@heading__font-family__base: 'Fraunces', Georgia, 'Times New Roman', serif;
+@font-size__base: 15px;            // must be px: Luma derives spacing from it
+@line-height__base: 1.6;
+@heading__font-weight__base: 600;
+
+// Base colors
+@text__color: @cs-text;
+@page__background-color: @cs-paper;
+@link__color: @cs-ink;
+@link__hover__color: @cs-ink-dark;
+@border-color__base: @cs-stone;
+
+// Primary buttons (Add to cart, Checkout, etc.)
+@button-primary__background: @cs-ink;
+@button-primary__border: 1px solid @cs-ink;
+@button-primary__color: #fff;
+@button-primary__hover__background: @cs-ink-dark;
+@button-primary__hover__border: 1px solid @cs-ink-dark;
+@button-primary__hover__color: #fff;
+@button__border-radius: 4px;
+
+// Secondary buttons
+@button__background: transparent;
+@button__border: 1px solid @cs-ink;
+@button__color: @cs-ink;
+@button__hover__background: @cs-ink;
+@button__hover__color: #fff;
+
+// Header & navigation
+@header__background-color: @cs-ink;
+@header-panel__background-color: @cs-ink-dark;
+@header-panel__text-color: #fff;
+@navigation__background: #fff;
+@navigation-level0-item__color: @cs-ink;
+@navigation-desktop-level0-item__hover__border-color: @cs-saffron;
+@navigation-desktop-level0-item__active__border-color: @cs-saffron;
+
+// Footer
+@footer__background-color: @cs-ink-dark;
