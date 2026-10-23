@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+    Plugins for the storefront "Add to Cart". In etc/frontend/ so admin orders
+    and APIs are not affected.
+
+    Cart::addProduct()
+      BEFORE (ForceQuantityTwo): runs first, changes qty 1 to 2.
+      AFTER  (CartQtyNotice):    runs once the product is in the cart, shows a notice.
+      AFTER  (AddToCartAlert):   remembers the product name + qty for the alert.
+      AROUND (MaxQtyPerProduct): blocks the add if the product would exceed 5 in the
+                                 cart. sortOrder 40 so it sees qty AFTER ForceQuantityTwo.
+
+    Cart::updateItems() (cart page save + mini-cart qty box)
+      AROUND (MaxQtyPerProduct): same class, aroundUpdateItems(): blocks qty changes over 5.
+
+    UpdateItemQty::execute() (cart page qty check, runs before the save)
+      AROUND (CartPageQtyCheck): answers with the error and skips the original, so
+                                 the cart page shows it in an alert.
+
+    Add::execute() (the checkout/cart/add controller)
+      AFTER  (AddToCartAlert):   puts the "added successfully" text into the AJAX
+                                 response; web/js/add-to-cart-alert.js shows it.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="codilar_cart_quantity_force_two"
+                type="Codilar\CartQuantityPlugin\Plugin\ForceQuantityTwo"
+                sortOrder="10"/>
+        <plugin name="codilar_cart_quantity_notice"
+                type="Codilar\CartQuantityPlugin\Plugin\CartQtyNotice"
+                sortOrder="20"/>
+        <plugin name="codilar_cart_add_alert"
+                type="Codilar\CartQuantityPlugin\Plugin\AddToCartAlert"
+                sortOrder="30"/>
+        <plugin name="codilar_cart_max_qty_per_product"
+                type="Codilar\CartQuantityPlugin\Plugin\MaxQtyPerProduct"
+                sortOrder="40"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\UpdateItemQty">
+        <plugin name="codilar_cart_page_qty_check"
+                type="Codilar\CartQuantityPlugin\Plugin\CartPageQtyCheck"
+                sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <plugin name="codilar_cart_add_alert"
+                type="Codilar\CartQuantityPlugin\Plugin\AddToCartAlert"
+                sortOrder="10"/>
+    </type>
+</config>

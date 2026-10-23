@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="sales_order_place_after">
+        <observer
+            name="codilar_eventdemo_order_placed"
+            instance="Codilar\EventDemo\Observer\OrderPlacedObserver"/>
+    </event>
+
+</config>

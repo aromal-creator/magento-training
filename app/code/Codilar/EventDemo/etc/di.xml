@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin
+            name="codilar_eventdemo_order_place_plugin"
+            type="Codilar\EventDemo\Plugin\OrderManagementPlugin"
+            sortOrder="10"/>
+    </type>
+
+</config>

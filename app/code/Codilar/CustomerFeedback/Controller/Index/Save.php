@@ -81,6 +81,12 @@ class Save extends Action implements HttpPostActionInterface
             ]);
             $this->feedbackResource->save($feedback);
 
+            // Custom event: any module can observe this in its events.xml.
+            $this->_eventManager->dispatch(
+                'codilar_customer_feedback_save_after',
+                ['feedback' => $feedback]
+            );
+
             $this->dataPersistor->clear('customer_feedback');
             $this->messageManager->addSuccessMessage(
                 __('Thank you for your feedback!')

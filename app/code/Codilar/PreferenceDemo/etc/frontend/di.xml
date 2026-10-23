@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+    Preference: whenever Magento asks the object manager for
+    Magento\Catalog\Model\Product on the storefront, it gets our subclass instead.
+    Lives in etc/frontend/ so the admin product grid/edit form is not affected.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Model\Product"
+                type="Codilar\PreferenceDemo\Model\Product"/>
+</config>

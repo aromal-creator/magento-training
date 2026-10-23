@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+    Plugins wrap ONE public method of a class, without replacing the class.
+    In etc/frontend/ so they only run on the storefront, not in the admin.
+
+    The method names in each plugin class decide when it runs:
+      before<Method>  -> runs first, can change the arguments
+      after<Method>   -> runs last, can change the return value
+      around<Method>  -> wraps the call, decides whether the original runs
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- BEFORE: changes the argument passed to Title::set() (browser tab + page heading) -->
+    <type name="Magento\Framework\View\Page\Title">
+        <plugin name="codilar_plugindemo_page_title"
+                type="Codilar\PluginDemo\Plugin\PageTitlePlugin"
+                sortOrder="10"/>
+    </type>
+
+    <!-- AFTER: changes the value returned by Product::getName() -->
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="codilar_plugindemo_product_name"
+                type="Codilar\PluginDemo\Plugin\ProductNamePlugin"
+                sortOrder="10"/>
+    </type>
+
+    <!-- AROUND: wraps Footer::getCopyright() and replaces its result -->
+    <type name="Magento\Theme\Block\Html\Footer">
+        <plugin name="codilar_plugindemo_footer_copyright"
+                type="Codilar\PluginDemo\Plugin\FooterCopyrightPlugin"
+                sortOrder="10"/>
+    </type>
+</config>

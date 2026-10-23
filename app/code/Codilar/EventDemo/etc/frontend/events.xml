@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+    Storefront-only observers (etc/frontend/). Format:
+      <event name="EVENT NAME">            the event to listen to
+          <observer name="UNIQUE NAME"     your own unique id for this observer
+                    instance="CLASS"/>     class implementing ObserverInterface
+      </event>
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- 1. CORE event: Magento dispatches this after a customer logs in. -->
+    <event name="customer_login">
+        <observer name="codilar_eventdemo_welcome_back"
+                  instance="Codilar\EventDemo\Observer\WelcomeBackObserver"/>
+    </event>
+
+    <!-- 2. CUSTOM event: dispatched by Codilar\CustomerFeedback\Controller\Index\Save. -->
+    <event name="codilar_customer_feedback_save_after">
+        <observer name="codilar_eventdemo_feedback_rating"
+                  instance="Codilar\EventDemo\Observer\FeedbackRatingObserver"/>
+    </event>
+
+</config>
