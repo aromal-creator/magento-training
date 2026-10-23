@@ -1,0 +1,65 @@
+<?php
+/** @var \Magento\Backend\Block\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\DashboardProducts\ViewModel\ProductList $viewModel */
+$viewModel = $block->getData('view_model');
+if (!$viewModel->isAllowed()) {
+    return;
+}
+$products = $viewModel->getProducts();
+?>
+<section class="dashboard-item codilar-dashboard-products" style="margin-top: 3rem;">
+    <div class="dashboard-item-title">
+        <?= $escaper->escapeHtml(__('Latest Products')) ?>
+        <span class="dashboard-item-title-count" style="font-weight: normal; font-size: 1.3rem;">
+            (<?= $escaper->escapeHtml(__('%1 total', $viewModel->getTotalCount())) ?>)
+        </span>
+    </div>
+    <div class="dashboard-item-content">
+        <?php if ($products->count()): ?>
+            <table class="admin__table-primary dashboard-data">
+                <thead>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('ID')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Name')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('SKU')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Type')) ?></th>
+                        <th class="a-right"><?= $escaper->escapeHtml(__('Price')) ?></th>
+                        <th class="a-right"><?= $escaper->escapeHtml(__('Quantity')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Status')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Action')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <tr>
+                            <td><?= (int) $product->getId() ?></td>
+                            <td><?= $escaper->escapeHtml($product->getName()) ?></td>
+                            <td><?= $escaper->escapeHtml($product->getSku()) ?></td>
+                            <td><?= $escaper->escapeHtml(ucfirst($product->getTypeId())) ?></td>
+                            <td class="a-right"><?= $escaper->escapeHtml($viewModel->formatPrice($product)) ?></td>
+                            <td class="a-right">
+                                <?= $product->getQty() !== null ? (float) $product->getQty() : '&mdash;' ?>
+                            </td>
+                            <td>
+                                <?= $escaper->escapeHtml($viewModel->isEnabled($product) ? __('Enabled') : __('Disabled')) ?>
+                            </td>
+                            <td>
+                                <a href="<?= $escaper->escapeUrl($viewModel->getEditUrl($product)) ?>">
+                                    <?= $escaper->escapeHtml(__('Edit')) ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <p style="margin-top: 1rem;">
+                <a href="<?= $escaper->escapeUrl($viewModel->getAllProductsUrl()) ?>">
+                    <?= $escaper->escapeHtml(__('View all products')) ?> &rarr;
+                </a>
+            </p>
+        <?php else: ?>
+            <div class="empty-text"><?= $escaper->escapeHtml(__('There are no products.')) ?></div>
+        <?php endif; ?>
+    </div>
+</section>

@@ -1,0 +1,15 @@
+{
+    "codilar_customer_feedback": {
+        "column": {
+            "feedback_id": true,
+            "customer_name": true,
+            "email": true,
+            "rating": true,
+            "message": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

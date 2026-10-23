@@ -1,0 +1,66 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\CustomerFeedback\ViewModel\Form $viewModel */
+$viewModel = $block->getData('view_model');
+$selectedRating = $viewModel->getValue('rating');
+?>
+<form class="form customer-feedback"
+      action="<?= $escaper->escapeUrl($block->getUrl('feedback/index/save')) ?>"
+      method="post"
+      data-mage-init='{"validation":{}}'>
+
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Tell us what you think')) ?></span></legend>
+
+        <div class="field required">
+            <label class="label" for="customer_name"><span><?= $escaper->escapeHtml(__('Name')) ?></span></label>
+            <div class="control">
+                <input type="text" id="customer_name" name="customer_name" class="input-text"
+                       value="<?= $escaper->escapeHtmlAttr($viewModel->getValue('customer_name')) ?>"
+                       data-validate='{"required":true}'>
+            </div>
+        </div>
+
+        <div class="field required">
+            <label class="label" for="email"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" id="email" name="email" class="input-text"
+                       value="<?= $escaper->escapeHtmlAttr($viewModel->getValue('email')) ?>"
+                       data-validate='{"required":true, "validate-email":true}'>
+            </div>
+        </div>
+
+        <div class="field required">
+            <label class="label" for="rating"><span><?= $escaper->escapeHtml(__('Rating')) ?></span></label>
+            <div class="control">
+                <select id="rating" name="rating" data-validate='{"required":true}'>
+                    <option value=""><?= $escaper->escapeHtml(__('-- Please select --')) ?></option>
+                    <?php for ($i = 5; $i >= 1; $i--): ?>
+                        <option value="<?= $i ?>"<?= $selectedRating === (string)$i ? ' selected' : '' ?>>
+                            <?= $escaper->escapeHtml(__('%1 / 5', $i)) ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="field required">
+            <label class="label" for="message"><span><?= $escaper->escapeHtml(__('Message')) ?></span></label>
+            <div class="control">
+                <textarea id="message" name="message" rows="6" maxlength="2000"
+                          data-validate='{"required":true}'><?= $escaper->escapeHtml($viewModel->getValue('message')) ?></textarea>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary">
+                <span><?= $escaper->escapeHtml(__('Submit Feedback')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>

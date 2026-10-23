@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="codilar.home.products.wrapper"
+                   after="-"
+                   template="Codilar_HomeProducts::wrapper.phtml">
+                <block class="Codilar\HomeProducts\Block\ProductsWithImage"
+                       name="codilar.home.products"
+                       as="products"
+                       template="Magento_CatalogWidget::product/widget/content/grid.phtml">
+                    <arguments>
+                        <argument name="title" xsi:type="string" translate="true">Our Products</argument>
+                        <argument name="products_count" xsi:type="number">8</argument>
+                        <argument name="show_pager" xsi:type="boolean">false</argument>
+                        <argument name="conditions_encoded" xsi:type="string">^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^]^]</argument>
+                        <argument name="cache_lifetime" xsi:type="number">3600</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -55,6 +55,7 @@ All custom modules use the `Codilar` vendor namespace in `app/code/Codilar/` and
 - **ProductCreator** (`/productcreator/product/{index,create}`) — creates catalog products programmatically and logs them in its own table via a Model/ResourceModel/Collection trio (`etc/db_schema.xml`).
 - **ProductOptions** — data patches only. `Setup/AbstractAddCustomOptions` is a base `DataPatchInterface` that adds priced custom options to a single SKU (runs under emulated adminhtml area, skips silently if SKU missing, de-dupes by option title). Concrete patches in `Setup/Patch/Data/` just implement `getSku()` and `getOptions()`. Patches run once — tracked in the `patch_list` table.
 - **StudentRegistration** (`/studentregistration`) — form + `Save` controller persisting to `codilar_student_registration` (declarative schema).
+- **CustomerFeedback** (`/feedback`) — feedback form (name, email, 1–5 rating, message) saved to `codilar_customer_feedback`. Validates the form key and fields in `Controller/Index/Save`. `ViewModel/Form` refills the form after a failed submit (DataPersistor) or prefills it for logged-in customers, so the form block is `cacheable="false"`.
 - **Student** (`/student`), **MvcExample**, **Hello** — simple MVC/registration examples. `StudentForm` is an empty skeleton (no `registration.php`, not enabled).
 
 Themes (both inherit from `Magento/luma`):

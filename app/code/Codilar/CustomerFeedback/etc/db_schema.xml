@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="codilar_customer_feedback"
+           resource="default"
+           engine="innodb"
+           comment="Codilar Customer Feedback">
+
+        <column xsi:type="int" name="feedback_id"
+                unsigned="true" nullable="false"
+                identity="true" comment="Feedback ID"/>
+
+        <column xsi:type="varchar" name="customer_name"
+                length="255" nullable="false"
+                comment="Customer Name"/>
+
+        <column xsi:type="varchar" name="email"
+                length="255" nullable="false"
+                comment="Customer Email"/>
+
+        <column xsi:type="smallint" name="rating"
+                unsigned="true" nullable="false"
+                comment="Rating (1-5)"/>
+
+        <column xsi:type="text" name="message"
+                nullable="false"
+                comment="Feedback Message"/>
+
+        <column xsi:type="timestamp" name="created_at"
+                nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="feedback_id"/>
+        </constraint>
+    </table>
+</schema>
