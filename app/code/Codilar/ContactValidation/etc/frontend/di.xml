@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+    Preference: the Contact Us form submit controller (POST /contact/index/post)
+    is replaced by our subclass, which uses its own private validatedParams().
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Contact\Controller\Index\Post"
+                type="Codilar\ContactValidation\Controller\Index\Post"/>
+</config>

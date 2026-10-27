@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- Default value of the admin toggle: on. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <checkout>
+            <codilar_guest_cart>
+                <require_login>1</require_login>
+            </codilar_guest_cart>
+        </checkout>
+    </default>
+</config>

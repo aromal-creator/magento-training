@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+    etc/events.xml (not etc/frontend/) so it runs for every order: storefront
+    checkout, admin-created orders and API orders.
+
+    sales_order_place_after is dispatched by Magento\Sales\Model\Order::place(),
+    just before the new order is saved. Event data: 'order'.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="codilar_orderalert_high_value"
+                  instance="Codilar\OrderAlert\Observer\HighValueOrder"/>
+    </event>
+</config>

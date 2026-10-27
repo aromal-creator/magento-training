@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+    Safety net at checkout: sales_model_service_quote_submit_before fires just
+    before the order is created (storefront REST checkout and admin orders).
+    Catches limits bypassed through the cart page, reorder, wishlist or the API.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="codilar_sneakerdrop_enforce_limit"
+                  instance="Codilar\SneakerDrop\Observer\EnforceLimitOnCheckout"/>
+    </event>
+</config>

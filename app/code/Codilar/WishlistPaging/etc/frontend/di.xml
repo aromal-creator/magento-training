@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Preference: the "My Wish List" page block is replaced by our subclass. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Wishlist\Block\Customer\Wishlist"
+                type="Codilar\WishlistPaging\Block\Customer\Wishlist"/>
+</config>

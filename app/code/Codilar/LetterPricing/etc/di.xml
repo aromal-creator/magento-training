@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+    Preference: Magento uses Option\Type\Text to price "Field" / "Area" custom
+    options in the cart, checkout and orders. Our subclass charges per letter
+    for the options listed below; every other text option keeps its flat price.
+
+    Global etc/di.xml (not etc/frontend/) because cart totals are also calculated
+    in the REST API (checkout) and in admin order creation.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Model\Product\Option\Type\Text"
+                type="Codilar\LetterPricing\Model\Product\Option\Type\Text"/>
+
+    <!-- Option titles that are charged per letter (exact admin title). -->
+    <type name="Codilar\LetterPricing\Model\Product\Option\Type\Text">
+        <arguments>
+            <argument name="perLetterOptionTitles" xsi:type="array">
+                <item name="initials_on_shoe" xsi:type="string">Initials on Shoe</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

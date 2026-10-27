@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+    checkout_onepage_controller_success_action is dispatched by
+    Magento\Checkout\Controller\Onepage\Success (the "Thank you for your purchase!"
+    page) ONLY after SuccessValidator confirms an order was just placed.
+    Failed orders never reach this page, so they never get the message.
+
+    Why not checkout_submit_all_after / sales_order_place_after: the storefront
+    checkout places orders through the REST API (webapi_rest area), so an
+    observer in etc/frontend/ would never run for those events.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="codilar_ordersuccessalert_show_message"
+                  instance="Codilar\OrderSuccessAlert\Observer\ShowOrderSuccessMessage"/>
+    </event>
+</config>

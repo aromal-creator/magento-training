@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+    Preference: the newsletter "Subscribe" controller (POST /newsletter/subscriber/new)
+    is replaced by our subclass, which has its own private getSuccessMessage().
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Newsletter\Controller\Subscriber\NewAction"
+                type="Codilar\NewsletterMessage\Controller\Subscriber\NewAction"/>
+</config>

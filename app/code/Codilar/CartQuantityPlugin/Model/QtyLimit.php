@@ -6,11 +6,11 @@ namespace Codilar\CartQuantityPlugin\Model;
 use Magento\Quote\Model\Quote;
 
 /**
- * The "at most 5 of a product per cart" rule, shared by the around plugins.
+ * The "at most 2 of a product per cart" rule (MAX_QTY), shared by the around plugins.
  */
 class QtyLimit
 {
-    public const MAX_QTY = 5;
+    public const MAX_QTY = 2;
 
     /**
      * Total qty per product the cart would have after applying $changes.

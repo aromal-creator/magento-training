@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+    Preference: the category page toolbar ("Sort By", "Show", pager) is replaced
+    by our subclass, which has its own private loadAvailableOrders().
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar"
+                type="Codilar\SortLabels\Block\Product\ProductList\Toolbar"/>
+</config>

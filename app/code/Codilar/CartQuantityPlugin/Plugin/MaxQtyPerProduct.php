@@ -5,6 +5,7 @@ namespace Codilar\CartQuantityPlugin\Plugin;
 
 use Codilar\CartQuantityPlugin\Model\QtyLimit;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Checkout\Model\Cart;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
@@ -27,11 +28,18 @@ class MaxQtyPerProduct
     private $qtyLimit;
 
     /**
-     * @param QtyLimit $qtyLimit
+     * @var ProductResource
      */
-    public function __construct(QtyLimit $qtyLimit)
+    private $productResource;
+
+    /**
+     * @param QtyLimit $qtyLimit
+     * @param ProductResource $productResource
+     */
+    public function __construct(QtyLimit $qtyLimit, ProductResource $productResource)
     {
         $this->qtyLimit = $qtyLimit;
+        $this->productResource = $productResource;
     }
 
     /**
@@ -46,6 +54,12 @@ class MaxQtyPerProduct
      */
     public function aroundAddProduct(Cart $subject, callable $proceed, $productInfo, $requestInfo = null)
     {
+        // Limited releases (Max Pairs Per Customer set) follow Codilar_SneakerDrop's
+        // own rule, which also lowers a too-big qty instead of rejecting it.
+        if ($this->isLimitedRelease($productInfo)) {
+            return $proceed($productInfo, $requestInfo);
+        }
+
         $productId = (int)($productInfo instanceof Product ? $productInfo->getId() : $productInfo);
 
         $violation = $this->qtyLimit->findViolation(
@@ -104,5 +118,23 @@ class MaxQtyPerProduct
         }
 
         return is_numeric($qty) && (float)$qty > 0 ? (float)$qty : 1.0;
+    }
+
+    /**
+     * Product has "Max Pairs Per Customer" set (Codilar_SneakerDrop).
+     *
+     * @param int|Product $productInfo
+     * @return bool
+     */
+    private function isLimitedRelease($productInfo): bool
+    {
+        if ($productInfo instanceof Product && $productInfo->hasData('max_per_customer')) {
+            $value = $productInfo->getData('max_per_customer');
+        } else {
+            $productId = (int)($productInfo instanceof Product ? $productInfo->getId() : $productInfo);
+            $value = $productId ? $this->productResource->getAttributeRawValue($productId, 'max_per_customer', 0) : null;
+        }
+
+        return is_numeric($value) && (int)$value > 0;
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Stores > Configuration > Sales > Checkout > Guest Add to Cart -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="checkout">
+            <group id="codilar_guest_cart" translate="label" sortOrder="5" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Guest Add to Cart</label>
+                <field id="require_login" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Require Sign In to Add to Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If Yes, guests are sent to the sign-in page when they click Add to Cart, then back to the page they were on.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

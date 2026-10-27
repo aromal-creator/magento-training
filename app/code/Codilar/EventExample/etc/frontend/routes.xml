@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- http://localhost:8000/eventexample -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="eventexample" frontName="eventexample">
+            <module name="Codilar_EventExample"/>
+        </route>
+    </router>
+</config>

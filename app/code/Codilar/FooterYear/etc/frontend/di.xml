@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Preference: the storefront footer block is replaced by our subclass. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Theme\Block\Html\Footer"
+                type="Codilar\FooterYear\Block\Html\Footer"/>
+</config>

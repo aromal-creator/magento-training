@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+    Preference: on the storefront, whenever Magento asks the object manager for
+    Magento\Catalog\Model\Product it gets Codilar\HotDeal\Model\Product instead.
+
+    Kept in etc/frontend/ on purpose: in the admin the product edit form reads
+    getName(), so a global preference would put "🔥 Hot Deal - " into the Name
+    field and saving the product would store it permanently.
+
+    Only ONE module can win a preference for a class. Codilar_PreferenceDemo also
+    has one for Product, so keep that module disabled while this one is enabled.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Model\Product"
+                type="Codilar\HotDeal\Model\Product"/>
+</config>

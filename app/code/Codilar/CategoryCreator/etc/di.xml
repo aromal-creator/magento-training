@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- Registers the CLI command: bin/magento codilar:category:create -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="codilar_category_create" xsi:type="object">Codilar\CategoryCreator\Console\Command\CreateCategory</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

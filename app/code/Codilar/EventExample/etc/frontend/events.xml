@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+    STEP 2 - THE CONNECTION.
+    "When codilar_greeting_before_show is dispatched, run AddGreetingNote."
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="codilar_greeting_before_show">
+        <observer name="codilar_eventexample_add_greeting_note"
+                  instance="Codilar\EventExample\Observer\AddGreetingNote"/>
+    </event>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+    Preference: the storefront "checkout/cart/add" controller is replaced by our
+    subclass, which sends guests to the login page instead of adding the product.
+    Plugins declared on the core Add class still run on the subclass.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Controller\Cart\Add"
+                type="Codilar\GuestCart\Controller\Cart\Add"/>
+</config>

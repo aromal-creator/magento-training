@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+    checkout_submit_all_after is dispatched once the order has been SAVED
+    successfully (storefront checkout and admin-created orders).
+    Event data: 'order', 'quote'.
+
+    Not sales_order_place_after: that one fires before the order is saved, so a
+    failed save could still hand out a coupon.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="codilar_ordercoupon_give_coupon"
+                  instance="Codilar\OrderCoupon\Observer\GiveNextOrderCoupon"/>
+    </event>
+</config>

@@ -4,7 +4,10 @@
     and APIs are not affected.
 
     Cart::addProduct()
-      BEFORE (ForceQuantityTwo): runs first, changes qty 1 to 2.
+      BEFORE (ForceQuantityTwo): changes qty 1 to 2, EXCEPT for limited products
+                                 (Max Pairs Per Customer set, Codilar_SneakerDrop),
+                                 which keep the qty the customer chose.
+                                 Set disabled="true" below to switch it off.
       AFTER  (CartQtyNotice):    runs once the product is in the cart, shows a notice.
       AFTER  (AddToCartAlert):   remembers the product name + qty for the alert.
       AROUND (MaxQtyPerProduct): blocks the add if the product would exceed 5 in the
@@ -26,7 +29,8 @@
     <type name="Magento\Checkout\Model\Cart">
         <plugin name="codilar_cart_quantity_force_two"
                 type="Codilar\CartQuantityPlugin\Plugin\ForceQuantityTwo"
-                sortOrder="10"/>
+                sortOrder="10"
+                disabled="false"/>
         <plugin name="codilar_cart_quantity_notice"
                 type="Codilar\CartQuantityPlugin\Plugin\CartQtyNotice"
                 sortOrder="20"/>
