@@ -1,0 +1,4 @@
+/* Sidebar icon for the "Return Manager" menu (Admin Icons font, "loop" glyph) */
+.admin__menu .item-return-manager.level-0 > a:before {
+    content: '\e61c';
+}

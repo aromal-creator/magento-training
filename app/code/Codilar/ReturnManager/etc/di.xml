@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Grid collection: reads codilar_return_request for the Manage Returns listing -->
+    <virtualType name="Codilar\ReturnManager\Model\ResourceModel\ReturnRequest\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">codilar_return_request</argument>
+            <argument name="resourceModel" xsi:type="string">Codilar\ReturnManager\Model\ResourceModel\ReturnRequest</argument>
+        </arguments>
+    </virtualType>
+    <!-- Connects the listing's data source name to that grid collection -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="codilar_return_request_listing_data_source" xsi:type="string">Codilar\ReturnManager\Model\ResourceModel\ReturnRequest\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

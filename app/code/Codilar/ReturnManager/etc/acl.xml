@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Codilar_ReturnManager::return_manager" title="Return Manager" sortOrder="35">
+                    <resource id="Codilar_ReturnManager::manage" title="Manage Returns" sortOrder="10"/>
+                    <resource id="Codilar_ReturnManager::save" title="Add / Edit Returns" sortOrder="20"/>
+                    <resource id="Codilar_ReturnManager::delete" title="Delete Returns" sortOrder="30"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

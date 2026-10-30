@@ -1,0 +1,39 @@
+{
+    "codilar_demo_table": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "email": true,
+            "description": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "CODILAR_DEMO_TABLE_IS_ACTIVE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_DEMO_TABLE_EMAIL": true
+        }
+    },
+    "codilar_demo_order": {
+        "column": {
+            "order_id": true,
+            "demo_id": true,
+            "store_id": true,
+            "order_number": true,
+            "amount": true,
+            "created_at": true
+        },
+        "index": {
+            "CODILAR_DEMO_ORDER_DEMO_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_DEMO_ORDER_ORDER_NUMBER": true,
+            "CODILAR_DEMO_ORDER_DEMO_ID_CODILAR_DEMO_TABLE_ENTITY_ID": true,
+            "CODILAR_DEMO_ORDER_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}

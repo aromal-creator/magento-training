@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="codilar_return_request" resource="default" engine="innodb" comment="Codilar Return Request">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="order_id" length="32" nullable="false" comment="Order Increment ID"/>
+        <column xsi:type="varchar" name="product_sku" length="64" nullable="false" comment="Product SKU"/>
+        <column xsi:type="varchar" name="reason" length="32" nullable="false" comment="Return Reason Code"/>
+        <column xsi:type="varchar" name="status" length="32" nullable="false" default="pending"
+                comment="Return Status Code"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="CODILAR_RETURN_REQUEST_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="CODILAR_RETURN_REQUEST_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <!-- Used by the grid's keyword search box -->
+        <index referenceId="CODILAR_RETURN_REQUEST_ORDER_ID_PRODUCT_SKU" indexType="fulltext">
+            <column name="order_id"/>
+            <column name="product_sku"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns.top">
+            <block class="Magento\Catalog\Block\Category\View"
+                   name="codilar.category.subtitle"
+                   template="Codilar_CategoryAttribute::subtitle.phtml"
+                   after="page.main.title"/>
+        </referenceContainer>
+    </body>
+</page>

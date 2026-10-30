@@ -25,6 +25,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * optionally assigns products (CategoryLinkManagementInterface), then prints every
  * database row that belongs to the new category, table by table.
  */
+
+
 class CreateCategory extends Command
 {
     private CategoryInterfaceFactory $categoryFactory;
@@ -111,7 +113,6 @@ class CreateCategory extends Command
 
         return Command::SUCCESS;
     }
-
     /**
      * Keep the product's existing categories and add the new one.
      */
@@ -151,6 +152,7 @@ class CreateCategory extends Command
                     ->join(['a' => $attr], 'a.attribute_id = v.attribute_id', ['attribute_code'])
                     ->where('v.entity_id = ?', $id)
             );
+            
             $output->writeln(sprintf("\n<comment>2) catalog_category_entity_%s  (%d rows: EAV attribute values)</comment>", $type, count($rows)));
             foreach ($rows as $r) {
                 $output->writeln(sprintf('   %-24s store %d = %s', $r['attribute_code'], $r['store_id'], $r['value']));

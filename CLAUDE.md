@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Magento Open Source 2.4.9 (`magento/project-community-edition`) running locally in **developer mode** on PHP 8.5, with `document_root_is_pub` enabled (web root is `pub/`). Core lives in `vendor/` — never edit it; customize via modules in `app/code/` and themes in `app/design/`. Third-party Composer packages: `mageplaza/module-smtp`, `razorpay/razorpay`.
 
+## How to work in this repo
+
+- **Workflow:** inspect the relevant files first, explain the planned change, and get approval before modifying files or running risky commands. Afterwards, explain how to test the change, and report errors honestly.
+- **Explanations:** the user is learning Magento, so explain code in beginner-friendly language.
+- **Coding:** follow the Magento 2 coding standard. Use constructor dependency injection (no `new` for services, no direct `ObjectManager` use). Pick the right extension point: a plugin for wrapping a public method, an observer for reacting to an event, and a preference only when you must replace a whole class (see "Overlapping customizations" below). Before creating a module, check `app/code/Codilar/` for existing functionality.
+- **Database:** use declarative schema (`etc/db_schema.xml`) for tables, and data patches for adding or updating EAV attributes and data. Explain database changes before applying them. Never drop tables, delete data, or run destructive database commands without explicit approval.
+- **Secrets:** never expose passwords, API keys, or other secrets (e.g. contents of `app/etc/env.php`).
+
 ## Common commands
 
 ```bash
@@ -50,13 +58,26 @@ No custom modules currently ship tests.
 
 ## Custom code layout
 
-All custom modules use the `Codilar` vendor namespace in `app/code/Codilar/` and are registered via `registration.php` + `etc/module.xml`; they must also be enabled in `app/etc/config.php` (done by `setup:upgrade`). These are mostly learning/training modules following standard Magento MVC: frontend route (`etc/frontend/routes.xml`) → controller (`Controller/<Folder>/<Action>.php`) → layout handle `<frontName>_<folder>_<action>.xml` → Block → `.phtml` template.
+All custom modules use the `Codilar` vendor namespace in `app/code/Codilar/` (~33 modules) and are registered via `registration.php` + `etc/module.xml`; they must also be enabled in `app/etc/config.php` (done by `setup:upgrade`). They are learning/training modules, each demonstrating one Magento extension mechanism. The module name usually says what it does; group by mechanism to find examples:
 
-- **ProductCreator** (`/productcreator/product/{index,create}`) — creates catalog products programmatically and logs them in its own table via a Model/ResourceModel/Collection trio (`etc/db_schema.xml`).
-- **ProductOptions** — data patches only. `Setup/AbstractAddCustomOptions` is a base `DataPatchInterface` that adds priced custom options to a single SKU (runs under emulated adminhtml area, skips silently if SKU missing, de-dupes by option title). Concrete patches in `Setup/Patch/Data/` just implement `getSku()` and `getOptions()`. Patches run once — tracked in the `patch_list` table.
-- **StudentRegistration** (`/studentregistration`) — form + `Save` controller persisting to `codilar_student_registration` (declarative schema).
-- **CustomerFeedback** (`/feedback`) — feedback form (name, email, 1–5 rating, message) saved to `codilar_customer_feedback`. Validates the form key and fields in `Controller/Index/Save`. `ViewModel/Form` refills the form after a failed submit (DataPersistor) or prefills it for logged-in customers, so the form block is `cacheable="false"`.
-- **Student** (`/student`), **MvcExample**, **Hello** — simple MVC/registration examples. `StudentForm` is an empty skeleton (no `registration.php`, not enabled).
+- **MVC pages** (route → controller → layout handle `<frontName>_<folder>_<action>.xml` → Block/ViewModel → `.phtml`): `Student`, `StudentRegistration`, `CustomerFeedback` (`/feedback`), `ProductCreator`, `EventExample`. Storage uses declarative schema (`etc/db_schema.xml` + whitelist) with a Model/ResourceModel/Collection trio.
+- **Layout injection into core pages**: `HomeProducts` (`cms_index_index`), `CategoryAttribute` (`catalog_category_view`), `OrderSuccessAlert` (`checkout_onepage_success`), `DashboardProducts` (admin dashboard).
+- **Preferences** (class rewrites, mostly in `etc/frontend/di.xml`): `ContactValidation`, `FooterYear`, `GuestCart`, `HotDeal`, `LetterPricing`, `NewsletterMessage`, `PriceLabel`, `SneakerDrop`, `SortLabels`, `WishlistPaging`, `PreferenceDemo`.
+- **Plugins**: `PluginDemo` (page title, product name, footer), `CartQuantityPlugin` (cart qty rules), `EventDemo` (`OrderManagementInterface`).
+- **Observers**: `EventDemo`, `OrderAlert`, `OrderCoupon`, `OrderSuccessAlert`, `SneakerDrop`, `EventExample`. Custom events are dispatched by `CustomerFeedback` (`codilar_customer_feedback_save_after`, observed in `EventDemo`) and `EventExample` (`codilar_greeting_before_show`).
+- **Data patches only** (run once, tracked in `patch_list`; to re-run, delete the row from `patch_list`): `AdminUser`, `ProductAttribute`, `StoreCreator`, `DemoTable` (also defines tables `codilar_demo_table`/`codilar_demo_order`), `ProductOptions`, plus patches inside `CategoryAttribute`, `OrderCoupon` (cart price rule), `SneakerDrop` (`max_per_customer` product attribute). `ProductOptions/Setup/AbstractAddCustomOptions` is a reusable base: concrete patches implement only `getSku()`/`getOptions()`. It runs under emulated adminhtml area, skips silently if the SKU is missing, and de-dupes by option title.
+- **CLI**: `CategoryCreator` registers `bin/magento codilar:category:create <name> [--parent=2] [--products=SKU1,SKU2] [--inactive]` through the `CommandList` in `di.xml`.
+
+### Overlapping customizations (check these before changing cart/product behavior)
+
+Several modules hook into the same core classes, so a change in one can break another:
+- `Magento\Checkout\Model\Cart` is replaced by a preference in `SneakerDrop` (per-customer lifetime purchase limit, `Model/PurchaseLimit`) **and** wrapped by four `CartQuantityPlugin` plugins (`ForceQuantityTwo` turns add-1 into add-2; `MaxQtyPerProduct` and `CartPageQtyCheck` enforce `QtyLimit::MAX_QTY = 2` per cart). `ForceQuantityTwo` deliberately skips products that have `max_per_customer` set.
+- `Magento\Checkout\Controller\Cart\Add` is replaced by a preference in `GuestCart` (admin config `checkout/codilar_guest_cart/require_login`) and wrapped by the `CartQuantityPlugin` `AddToCartAlert` plugin.
+- `Magento\Catalog\Model\Product` has a preference in both `HotDeal` and `PreferenceDemo`. Only one preference can win; `PreferenceDemo` is currently disabled in `config.php`, so enabling it would conflict with `HotDeal`. `PluginDemo` also plugs into it.
+- `Magento\Theme\Block\Html\Footer` has a preference in `FooterYear` and a plugin in `PluginDemo`.
+- `sales_order_place_after` is observed by both `EventDemo` and `OrderAlert`.
+
+`MvcExample` and `StudentForm` have no `registration.php`, so Magento doesn't load them. `Hello` contains only registration files.
 
 Themes (both inherit from `Magento/luma`):
 - `app/design/frontend/Custom/storefront` — the active custom theme with LESS overrides (`web/css/source/_extend.less`, `_theme.less`) and `Magento_Theme` layout overrides.
@@ -65,3 +86,5 @@ Themes (both inherit from `Magento/luma`):
 ## Repository caveats
 
 - `app/etc/env.php` (DB credentials, crypt key) is gitignored and must stay out of version control, along with `vendor/`, `generated/`, `var/`, `pub/static/`, `pub/media/`.
+
+

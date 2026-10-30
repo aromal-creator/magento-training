@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_ReturnManager::return_manager"
+             title="Return Manager"
+             translate="title"
+             module="Codilar_ReturnManager"
+             sortOrder="35"
+             resource="Codilar_ReturnManager::return_manager"/>
+        <add id="Codilar_ReturnManager::manage"
+             title="Manage Returns"
+             translate="title"
+             module="Codilar_ReturnManager"
+             sortOrder="10"
+             parent="Codilar_ReturnManager::return_manager"
+             action="returnmanager/request/index"
+             resource="Codilar_ReturnManager::manage"/>
+        <add id="Codilar_ReturnManager::add"
+             title="Add Return"
+             translate="title"
+             module="Codilar_ReturnManager"
+             sortOrder="20"
+             parent="Codilar_ReturnManager::return_manager"
+             action="returnmanager/request/new"
+             resource="Codilar_ReturnManager::save"/>
+    </menu>
+</config>

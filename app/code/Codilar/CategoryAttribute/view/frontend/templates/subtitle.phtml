@@ -1,0 +1,10 @@
+<?php
+/** @var \Magento\Catalog\Block\Category\View $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$subtitle = $block->getCurrentCategory()->getData('category_subtitle');
+?>
+<?php if ($subtitle): ?>
+    <p class="category-subtitle" style="font-size: 18px; color: #666; margin: -10px 0 20px;">
+        <?= $escaper->escapeHtml($subtitle) ?>
+    </p>
+<?php endif; ?>
