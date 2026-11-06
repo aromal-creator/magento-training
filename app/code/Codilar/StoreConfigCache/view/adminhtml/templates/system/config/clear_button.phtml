@@ -1,0 +1,12 @@
+<?php
+/** @var \Codilar\StoreConfigCache\Block\Adminhtml\System\Config\ClearButton $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<ul style="margin: 0 0 1rem 1.5rem;">
+    <?php foreach ($block->getPaths() as $label => $path): ?>
+        <li><strong><?= $escaper->escapeHtml($label) ?></strong>: <?= $escaper->escapeHtml($path) ?></li>
+    <?php endforeach; ?>
+</ul>
+<a class="action-default" href="<?= $escaper->escapeUrl($block->getClearUrl()) ?>">
+    <?= $escaper->escapeHtml(__('Clear Store Config Cache')) ?>
+</a>

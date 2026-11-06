@@ -1,0 +1,12 @@
+<!--@subject {{trans "Welcome to %store_name" store_name=$store_name}} @-->
+<!--@vars {
+"var customer_name":"Customer Name",
+"var store_name":"Store Name"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "Hi %name," name=$customer_name}}</p>
+<p>{{trans "Welcome to %store_name! Your account is ready." store_name=$store_name}}</p>
+<p>{{trans "This email was sent in the background by a message queue."}}</p>
+
+{{template config_path="design/email/footer_template"}}

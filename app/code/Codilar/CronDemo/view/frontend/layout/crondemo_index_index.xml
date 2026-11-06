@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <!-- cacheable="false": the runs change every minute, so never serve a cached copy -->
+            <block class="Magento\Framework\View\Element\Template"
+                   name="codilar.cron.demo.heartbeat"
+                   template="Codilar_CronDemo::heartbeat.phtml"
+                   cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Codilar\CronDemo\ViewModel\HeartbeatRuns</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Adds "Codilar Store Config Cache" to System > Cache Management and to bin/magento cache:* commands -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="codilar_store_config_cache" translate="label,description" instance="Codilar\StoreConfigCache\Model\Cache\Type">
+        <label>Codilar Store Config Cache</label>
+        <description>Selected store configuration values (paths set in di.xml), cached per store view for one hour.</description>
+    </type>
+</config>

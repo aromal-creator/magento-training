@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Stores > Configuration > Codilar > Store Config Cache: shows the cached paths and a "Clear" button -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="codilar" translate="label" sortOrder="400">
+            <label>Codilar</label>
+        </tab>
+        <section id="codilar_store_config_cache" translate="label" sortOrder="20" showInDefault="1">
+            <label>Store Config Cache</label>
+            <tab>codilar</tab>
+            <resource>Codilar_StoreConfigCache::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1">
+                <label>Cache</label>
+                <field id="clear" translate="label comment" sortOrder="10" showInDefault="1">
+                    <label>Cached Values</label>
+                    <frontend_model>Codilar\StoreConfigCache\Block\Adminhtml\System\Config\ClearButton</frontend_model>
+                    <comment>Removes the cached values of every store view. They are read again on the next request.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

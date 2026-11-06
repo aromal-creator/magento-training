@@ -15,7 +15,7 @@ class Student extends Template
         array $data = []
     ) {
         $this->studentModel = $studentModel;
-
+    
         parent::__construct($context, $data);
     }
 

@@ -54,8 +54,10 @@
                     table="codilar_demo_order" column="store_id"
                     referenceTable="store" referenceColumn="store_id"
                     onDelete="SET NULL"/>
-      
-      
+        <!-- Index: a foreign key column needs one, and it speeds up "orders of demo X" lookups -->
+        <index referenceId="CODILAR_DEMO_ORDER_DEMO_ID" indexType="btree">
+            <column name="demo_id"/>
+        </index>
     </table>
 
 </schema>

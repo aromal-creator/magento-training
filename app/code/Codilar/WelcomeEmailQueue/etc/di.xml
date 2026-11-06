@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- A separate log file, var/log/welcome_email.log, so the queue's activity is easy to follow -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Codilar\WelcomeEmailQueue\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/welcome_email.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Codilar\WelcomeEmailQueue\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">welcome_email</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="file" xsi:type="object">Codilar\WelcomeEmailQueue\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Codilar\WelcomeEmailQueue\Observer\PublishWelcomeEmail">
+        <arguments>
+            <argument name="logger" xsi:type="object">Codilar\WelcomeEmailQueue\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Codilar\WelcomeEmailQueue\Model\WelcomeEmailHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">Codilar\WelcomeEmailQueue\Logger</argument>
+        </arguments>
+    </type>
+</config>

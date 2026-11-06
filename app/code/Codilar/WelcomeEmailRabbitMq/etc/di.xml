@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- A separate log file, var/log/welcome_email_rabbitmq.log -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Codilar\WelcomeEmailRabbitMq\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/welcome_email_rabbitmq.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Codilar\WelcomeEmailRabbitMq\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">welcome_email_rabbitmq</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="file" xsi:type="object">Codilar\WelcomeEmailRabbitMq\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Codilar\WelcomeEmailRabbitMq\Observer\PublishWelcomeEmail">
+        <arguments>
+            <argument name="logger" xsi:type="object">Codilar\WelcomeEmailRabbitMq\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Codilar\WelcomeEmailRabbitMq\Model\WelcomeEmailHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">Codilar\WelcomeEmailRabbitMq\Logger</argument>
+        </arguments>
+    </type>
+</config>

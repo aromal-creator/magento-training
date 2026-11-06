@@ -1,0 +1,34 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\StoreConfigCache\ViewModel\StoreConfigView $viewModel */
+$viewModel = $block->getData('view_model');
+$result = $viewModel->getResult();
+?>
+<p>
+    <strong><?= $escaper->escapeHtml(__('Store view')) ?>:</strong>
+    <?= $escaper->escapeHtml($result['store_name']) ?> (ID <?= (int)$result['store_id'] ?>)<br>
+    <strong><?= $escaper->escapeHtml(__('Cache key')) ?>:</strong> <?= $escaper->escapeHtml($result['cache_key']) ?><br>
+    <strong><?= $escaper->escapeHtml(__('Result')) ?>:</strong>
+    <?= $escaper->escapeHtml($result['hit'] ? __('HIT (from cache)') : __('MISS (read from config, now cached)')) ?><br>
+    <strong><?= $escaper->escapeHtml(__('Cached at')) ?>:</strong>
+    <?= $escaper->escapeHtml(gmdate('Y-m-d H:i:s', $result['cached_at'])) ?> UTC<br>
+    <strong><?= $escaper->escapeHtml(__('Expires at')) ?>:</strong>
+    <?= $escaper->escapeHtml(gmdate('Y-m-d H:i:s', $result['expires_at'])) ?> UTC
+</p>
+<table class="data table">
+    <thead>
+    <tr>
+        <th><?= $escaper->escapeHtml(__('Setting')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Value')) ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($result['values'] as $label => $value): ?>
+        <tr>
+            <td><?= $escaper->escapeHtml($label) ?></td>
+            <td><?= $escaper->escapeHtml($value !== '' ? $value : __('(not set)')) ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

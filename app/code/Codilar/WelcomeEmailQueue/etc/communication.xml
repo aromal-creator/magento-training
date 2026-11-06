@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!-- 1. The TOPIC: a named message type. Each message carries one customer ID (int). -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="codilar.customer.welcome_email" request="int"/>
+</config>

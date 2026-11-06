@@ -1,0 +1,47 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\CronDemo\ViewModel\HeartbeatRuns $viewModel */
+$viewModel = $block->getData('view_model');
+$lastSuccess = $viewModel->getLastSuccess();
+$runs = $viewModel->getRuns();
+?>
+<p>
+    <?= $escaper->escapeHtml(__('Job:')) ?>
+    <strong><?= $escaper->escapeHtml($viewModel::JOB_CODE) ?></strong>
+</p>
+<p>
+    <?= $escaper->escapeHtml(__('Last successful run:')) ?>
+    <strong>
+        <?= $escaper->escapeHtml($lastSuccess ? $lastSuccess->getFinishedAt() : __('not run yet')) ?>
+    </strong>
+</p>
+
+<?php if (!$runs): ?>
+    <div class="message info empty">
+        <span><?= $escaper->escapeHtml(__('No runs scheduled yet. Wait a minute for cron to plan them.')) ?></span>
+    </div>
+<?php else: ?>
+    <table class="data table">
+        <thead>
+            <tr>
+                <th><?= $escaper->escapeHtml(__('ID')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Status')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Scheduled')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Executed')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Finished')) ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($runs as $run): ?>
+                <tr>
+                    <td><?= (int)$run->getId() ?></td>
+                    <td><?= $escaper->escapeHtml($run->getStatus()) ?></td>
+                    <td><?= $escaper->escapeHtml($run->getScheduledAt()) ?></td>
+                    <td><?= $escaper->escapeHtml($run->getExecutedAt() ?: '-') ?></td>
+                    <td><?= $escaper->escapeHtml($run->getFinishedAt() ?: '-') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

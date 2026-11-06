@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- 3. The TOPOLOGY: inside RabbitMQ, the "magento" exchange routes this topic into our queue.
+     setup:upgrade creates the exchange, the queue and the binding on the RabbitMQ server. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="magento" type="topic" connection="amqp">
+        <binding id="codilarWelcomeEmailAmqpBinding"
+                 topic="codilar.customer.welcome_email.amqp"
+                 destinationType="queue"
+                 destination="codilar_customer_welcome_email_amqp"/>
+    </exchange>
+</config>

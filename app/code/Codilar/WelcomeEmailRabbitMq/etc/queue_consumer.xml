@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- 4. The CONSUMER: reads the RabbitMQ queue and passes each message to the handler method -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="codilar.customer.welcome_email.amqp"
+              queue="codilar_customer_welcome_email_amqp"
+              connection="amqp"
+              handler="Codilar\WelcomeEmailRabbitMq\Model\WelcomeEmailHandler::process"/>
+</config>

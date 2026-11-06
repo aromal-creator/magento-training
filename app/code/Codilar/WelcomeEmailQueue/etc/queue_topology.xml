@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- 3. The TOPOLOGY: the exchange routes this topic into our queue -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="magento-db" type="topic" connection="db">
+        <binding id="codilarWelcomeEmailBinding"
+                 topic="codilar.customer.welcome_email"
+                 destinationType="queue"
+                 destination="codilar_customer_welcome_email"/>
+    </exchange>
+</config>

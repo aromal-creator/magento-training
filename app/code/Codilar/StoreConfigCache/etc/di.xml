@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- The configuration values to cache: label => config path.
+         To cache another value, add an item here (and its section to etc/adminhtml/events.xml). -->
+    <type name="Codilar\StoreConfigCache\Model\StoreConfigCache">
+        <arguments>
+            <argument name="paths" xsi:type="array">
+                <item name="store_name" xsi:type="string">general/store_information/name</item>
+                <item name="store_phone" xsi:type="string">general/store_information/phone</item>
+                <item name="store_email" xsi:type="string">trans_email/ident_general/email</item>
+                <item name="locale" xsi:type="string">general/locale/code</item>
+                <item name="base_currency" xsi:type="string">currency/options/base</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- bin/magento codilar:store-config:clear -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="codilar_store_config_clear" xsi:type="object">Codilar\StoreConfigCache\Console\Command\ClearCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- Fired by the storefront registration controller after a new customer account is created -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_register_success">
+        <observer name="codilar_welcome_email_publish" instance="Codilar\WelcomeEmailQueue\Observer\PublishWelcomeEmail"/>
+    </event>
+</config>

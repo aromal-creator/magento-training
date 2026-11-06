@@ -9,6 +9,13 @@
                     <resource id="Codilar_ReturnManager::save" title="Add / Edit Returns" sortOrder="20"/>
                     <resource id="Codilar_ReturnManager::delete" title="Delete Returns" sortOrder="30"/>
                 </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Codilar_ReturnManager::config" title="Return Manager Settings" sortOrder="35"/>
+                        </resource>
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>

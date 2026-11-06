@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Fired before every controller of the "returnmanager" admin route -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_returnmanager">
+        <observer name="codilar_return_manager_block_when_disabled"
+                  instance="Codilar\ReturnManager\Observer\BlockWhenDisabled"/>
+    </event>
+</config>

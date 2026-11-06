@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- Fired after Stores > Configuration > <section> is saved. One entry per section of a cached path. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_general">
+        <observer name="codilar_store_config_cache_clear" instance="Codilar\StoreConfigCache\Observer\ClearOnConfigSave"/>
+    </event>
+    <event name="admin_system_config_changed_section_trans_email">
+        <observer name="codilar_store_config_cache_clear" instance="Codilar\StoreConfigCache\Observer\ClearOnConfigSave"/>
+    </event>
+    <event name="admin_system_config_changed_section_currency">
+        <observer name="codilar_store_config_cache_clear" instance="Codilar\StoreConfigCache\Observer\ClearOnConfigSave"/>
+    </event>
+</config>
